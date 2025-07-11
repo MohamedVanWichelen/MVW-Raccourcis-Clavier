@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raccourcis Clavier - Référence Complète</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #5b8cff;
+            --primary-light: #89aaff;
+            --secondary: #ffb6c1;
+            --secondary-light: #ffd6dc;
+            --gray-light: #f8f9fa;
+            --text: #2d3748;
+        }
+        
+        body {
+            color: var(--text);
+            background-color: #fef6ff;
+        }
+        
+        .shortcut-card {
+            transition: all 0.2s ease;
+            border: 1px solid var(--secondary-light);
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(91, 140, 255, 0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .category-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgba(91, 140, 255, 0.2);
+        }
+
+        .popularity-badge {
+            font-size: 0.75rem;
+            border-radius: 1rem;
+            padding: 0.25rem 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popularity-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .popularity-badge i {
+            margin-right: 0.25rem;
+            font-size: 0.65rem;
+        }
+        
+        .category-btn:not(.active):hover {
+            background-color: var(--secondary-light);
+        }
+        
+        .key-combo {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(91, 140, 255, 0.2);
+        }
+
+        #searchSuggestions {
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: none;
+            padding: 10px;
+            transform: translateY(10px);
+        }
+
+        #searchSuggestions:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+            box-shadow: -3px -3px 5px rgba(0,0,0,0.05);
+        }
+
+        #searchSuggestions div {
+            border-radius: 15px;
+            margin: 3px 0;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+        }
+
+        #searchSuggestions div:hover {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            transform: translateX(5px);
+        }
+
+        #searchSuggestions div .match-score {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: #6b7280;
+            background-color: #e5e7eb;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-semibold mb-2">Raccourcis Clavier</h1>
+            <p class="text-gray-600 mb-6">Les raccourcis essentiels pour gagner du temps</p>
+            
+            <div class="relative max-w-md mx-auto">
+                <input type="text" placeholder="Rechercher..." 
+                       class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary search-input">
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                <div class="absolute z-10 w-full mt-3 bg-white rounded-3xl shadow-xl hidden p-3" id="searchSuggestions">
+                    <div class="text-sm text-gray-600">
+                        <div class="px-4 py-2 cursor-pointer bg-gray-50">Copier (Ctrl+C)</div>
+                        <div class="px-4 py-2 cursor-pointer bg-gray-50">Coller (Ctrl+V)</div>
+                        <div class="px-4 py-2 cursor-pointer bg-gray-50">Annuler (Ctrl+Z)</div>
+                        <div class="px-4 py-2 cursor-pointer bg-gray-50">Actualiser (F5)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Categories -->
+        <div class="mb-6 flex flex-wrap gap-2">
+            <button class="category-btn active px-3 py-1 rounded-md bg-primary text-white text-sm" data-category="all">
+                Tous
+            </button>
+            <button class="category-btn px-3 py-1 rounded-md bg-gray-100 text-sm" data-category="edition">
+                Édition
+            </button>
+            <button class="category-btn px-3 py-1 rounded-md bg-gray-100 text-sm" data-category="navigation">
+                Navigation
+            </button>
+            <button class="category-btn px-3 py-1 rounded-md bg-gray-100 text-sm" data-category="systeme">
+                Système
+            </button>
+        </div>
+
+        <!-- Shortcuts Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Shortcut Card 1 -->
+            <div class="bg-white rounded-lg p-4 shortcut-card" data-category="edition">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h3 class="text-lg font-medium">Copier</h3>
+                        <p class="text-gray-600 text-sm">Copier le texte ou élément sélectionné</p>
+                    </div>
+                    <div class="key-combo px-3 py-1 rounded text-sm">Ctrl+C</div>
+                </div>
+                <div class="text-gray-500 text-xs">
+                    <i class="fas fa-info-circle mr-1"></i> Fonctionne dans la plupart des applications
+                </div>
+            </div>
+
+            <!-- Shortcut Card 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200" data-category="edition">
+                <div class="absolute top-2 right-2 popularity-badge bg-gradient-to-r from-pink-500 to-rose-500 text-white">
+                    <i class="fas fa-fire"></i> #2
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Coller</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+V</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Coller le contenu du presse-papiers</p>
+                    <div class="text-sm text-gray-500 mb-2">
+                        <i class="fas fa-info-circle mr-1"></i> Fonctionne dans tous les champs de texte, éditeurs, et zones acceptant du contenu (documents, emails, formulaires web)
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">98/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                    <i class="fas fa-bolt"></i> #3
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Couper</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+X</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Couper le texte ou élément sélectionné</p>
+                    <div class="text-sm text-gray-500 mb-2">
+                        <i class="fas fa-info-circle mr-1"></i> Fonctionne avec du texte sélectionné dans les éditeurs, ou fichiers/dossiers sélectionnés dans l'Explorateur
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">95/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 4 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-orange-500 text-white">#4</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Annuler</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+Z</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Annuler la dernière action</p>
+                    <div class="text-sm text-gray-500 mb-2">
+                        <i class="fas fa-info-circle mr-1"></i> Fonctionne dans la plupart des applications : éditeurs de texte, logiciels de graphisme, navigation web, formulaires - annule la dernière modification
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">92/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 5 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-orange-500 text-white">#5</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Enregistrer</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+S</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Enregistrer le fichier actuel</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">90/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 6 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200" data-category="navigation">
+                <div class="absolute top-2 right-2 popularity-badge bg-orange-500 text-white">#6</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Actualiser</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">F5</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Actualiser la page</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">90/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 7 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-yellow-500 text-white">#7</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">Populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Tout sélectionner</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+A</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Sélectionner tout le contenu</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">88/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 8 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200" data-category="systeme">
+                <div class="absolute top-2 right-2 popularity-badge bg-yellow-500 text-white">#8</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">Populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Changer d'application</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Alt+Tab</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Basculer entre les applications ouvertes</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">85/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 9 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-yellow-500 text-white">#9</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">Populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Refaire</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+Y</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Refaire la dernière action annulée</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">85/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shortcut Card 10 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden relative shortcut-card transition-all duration-200">
+                <div class="absolute top-2 right-2 popularity-badge bg-yellow-500 text-white">#10</div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">Populaire</span>
+                            <h3 class="text-xl font-bold text-gray-800">Nouvel onglet</h3>
+                        </div>
+                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+T</div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Ouvrir un nouvel onglet</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="w-full mr-4">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700">85/100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-10">
+            <button id="loadMoreBtn" class="px-6 py-3 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full hover:from-blue-500 hover:to-blue-600 transition-all duration-300 font-medium flex items-center justify-center mx-auto shadow-lg hover:shadow-xl">
+                <span id="btnText">Charger plus de raccourcis</span>
+                <span id="loadingSpinner" class="hidden ml-2">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t border-secondary-light text-center text-gray-500 text-sm">
+            <p>© 2023 Raccourcis Clavier</p>
+        </footer>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
