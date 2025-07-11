@@ -212,8 +212,9 @@
         const btnText = document.getElementById('btnText');
         const loadingSpinner = document.getElementById('loadingSpinner');
         let currentCount = 10; // Starting with 10 shortcuts already displayed
+        const shortcutsPerLoad = 15; // Load 15 shortcuts at a time
 
-        // Sample additional shortcuts data
+        // Sample additional shortcuts data (expanded list)
         const moreShortcuts = [
             {
                 id: 11,
@@ -266,8 +267,8 @@
             // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 1000));
 
-            // Get next 5 shortcuts
-            const shortcutsToAdd = moreShortcuts.slice(0, 5);
+            // Get next batch of shortcuts
+            const shortcutsToAdd = moreShortcuts.slice(0, shortcutsPerLoad);
             
             // Add new shortcuts to the grid
             const grid = document.querySelector('.grid');
@@ -303,19 +304,16 @@
             });
 
             // Update current count and remove loaded shortcuts from array
-            currentCount += 5;
-            moreShortcuts.splice(0, 5);
+            currentCount += shortcutsToAdd.length;
+            moreShortcuts.splice(0, shortcutsPerLoad);
 
             // Reset button state
-            btnText.textContent = moreShortcuts.length > 0 ? 
-                "Charger plus de raccourcis" : "Tous les raccourcis chargés";
-            loadingSpinner.classList.add('hidden');
-            loadMoreBtn.disabled = moreShortcuts.length === 0;
-
-            // Disable button if no more shortcuts
-            if (moreShortcuts.length === 0) {
-                loadMoreBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                loadMoreBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+            if (moreShortcuts.length > 0) {
+                btnText.textContent = `Charger plus de raccourcis (${moreShortcuts.length})`;
+                loadingSpinner.classList.add('hidden');
+            } else {
+                // Hide the button completely when no more shortcuts
+                document.getElementById('loadMoreContainer').style.display = 'none';
             }
         });
 
