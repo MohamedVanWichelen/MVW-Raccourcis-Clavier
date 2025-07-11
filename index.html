@@ -34,6 +34,19 @@
             border-color: var(--primary-light);
         }
         
+        .os-tab {
+            transition: all 0.2s ease;
+        }
+        
+        .os-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .os-tab:not(.active):hover {
+            color: var(--text);
+        }
+        
         .category-btn.active {
             background-color: var(--primary);
             color: white;
@@ -141,8 +154,21 @@
             </div>
         </header>
 
+        <!-- OS Tabs -->
+        <div class="mb-4 flex border-b border-gray-200">
+            <button class="os-tab active px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600" data-os="windows">
+                <i class="fab fa-windows mr-2"></i>Windows
+            </button>
+            <button class="os-tab px-4 py-2 font-medium text-gray-500 hover:text-gray-700" data-os="mac">
+                <i class="fab fa-apple mr-2"></i>Mac
+            </button>
+            <button class="os-tab px-4 py-2 font-medium text-gray-500 hover:text-gray-700" data-os="linux">
+                <i class="fab fa-linux mr-2"></i>Linux
+            </button>
+        </div>
+
         <!-- Categories -->
-        <div class="mb-6 flex flex-wrap gap-2">
+        <div class="mb-6 mt-2 flex flex-wrap gap-2">
             <button class="category-btn active px-3 py-1 rounded-md bg-primary text-white text-sm" data-category="all">
                 Tous
             </button>
@@ -184,7 +210,11 @@
                             <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">Très populaire</span>
                             <h3 class="text-xl font-bold text-gray-800">Coller</h3>
                         </div>
-                        <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800">Ctrl+V</div>
+                        <div class="flex flex-col gap-1">
+                            <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800 windows-key" title="Windows">Ctrl+V</div>
+                            <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800 mac-key hidden" title="Mac">⌘V</div>
+                            <div class="bg-gray-100 px-3 py-2 rounded-lg font-mono text-gray-800 linux-key hidden" title="Linux">Ctrl+V</div>
+                        </div>
                     </div>
                     <p class="text-gray-600 mb-4">Coller le contenu du presse-papiers</p>
                     <div class="text-sm text-gray-500 mb-2">
