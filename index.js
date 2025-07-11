@@ -28,6 +28,31 @@
             userPreferences = JSON.parse(localStorage.getItem('keyboardShortcutsPrefs'));
         }
 
+        // OS Tab functionality
+        document.querySelectorAll('.os-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.os-tab').forEach(t => {
+                    t.classList.remove('active', 'text-blue-600', 'border-blue-600');
+                    t.classList.add('text-gray-500');
+                });
+                
+                this.classList.add('active', 'text-blue-600', 'border-blue-600');
+                this.classList.remove('text-gray-500');
+                
+                const os = this.dataset.os;
+                
+                // Hide all keys
+                document.querySelectorAll('.windows-key, .mac-key, .linux-key').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                
+                // Show keys for selected OS
+                document.querySelectorAll(`.${os}-key`).forEach(el => {
+                    el.classList.remove('hidden');
+                });
+            });
+        });
+
         // Filter functionality
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
